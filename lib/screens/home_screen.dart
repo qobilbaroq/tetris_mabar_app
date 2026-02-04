@@ -4,6 +4,8 @@ import '../widgets/tetris_logo.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/outlined_button.dart';
 import '../widgets/text_link.dart';
+import 'create_room_screen.dart';
+import 'join_room_screen.dart';
 
 /// Home screen untuk aplikasi Tetris
 /// Menampilkan logo, judul, dan menu utama
@@ -20,12 +22,12 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(flex: 2),
-              
+
               // Logo Tetris Blocks
               const TetrisLogo(size: 140),
-              
+
               const SizedBox(height: 24),
-              
+
               // Title TETRIS
               const Text(
                 'TETRIS',
@@ -36,31 +38,41 @@ class HomeScreen extends StatelessWidget {
                   letterSpacing: 2,
                 ),
               ),
-              
+
               const Spacer(flex: 2),
-              
+
               // Create Room Button
               PrimaryButton(
                 text: 'Create Room',
-                icon: Icons.arrow_forward,
+                icon: Icons.add,
                 onPressed: () {
-                  // TODO: Navigate to create room
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateRoomScreen(),
+                    ),
+                  );
                 },
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Join Room Button
               OutlinedGameButton(
                 text: 'Join Room',
                 icon: Icons.login_outlined,
                 onPressed: () {
-                  // TODO: Navigate to join room
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const JoinRoomScreen(),
+                    ),
+                  );
                 },
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // How to Play Link
               TextLink(
                 text: 'How to Play',
@@ -69,9 +81,9 @@ class HomeScreen extends StatelessWidget {
                   // TODO: Show how to play dialog/page
                 },
               ),
-              
+
               const Spacer(),
-              
+
               // Version Text
               const Text(
                 'v1.0.0 Beta',
@@ -81,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                   color: AppColors.contentLow,
                 ),
               ),
-              
+
               const SizedBox(height: 24),
             ],
           ),

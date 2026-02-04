@@ -4,21 +4,22 @@ import '../widgets/custom_input_field.dart';
 import '../widgets/info_text.dart';
 import '../widgets/primary_button.dart';
 
-/// Screen untuk membuat room baru
-/// User memasukkan username dan membuat room
-class CreateRoomScreen extends StatefulWidget {
-  const CreateRoomScreen({super.key});
+/// Screen untuk bergabung ke room yang sudah dibuat
+class JoinRoomScreen extends StatefulWidget {
+  const JoinRoomScreen({super.key});
 
   @override
-  State<CreateRoomScreen> createState() => _CreateRoomScreenState();
+  State<JoinRoomScreen> createState() => _JoinRoomScreenState();
 }
 
-class _CreateRoomScreenState extends State<CreateRoomScreen> {
+class _JoinRoomScreenState extends State<JoinRoomScreen> {
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _roomIdController = TextEditingController();
 
   @override
   void dispose() {
     _usernameController.dispose();
+    _roomIdController.dispose();
     super.dispose();
   }
 
@@ -50,7 +51,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
 
               // Title
               const Text(
-                'Create Room',
+                'Join Room',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
@@ -62,7 +63,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
 
               // Subtitle
               const Text(
-                'Set up a room and start the game',
+                'Enter details to connect to a game',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -72,7 +73,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
 
               const SizedBox(height: 48),
 
-              // Username Input
+              // Username Input (icon on right)
               CustomInputField(
                 label: 'Username',
                 hint: 'TetrisMaster',
@@ -81,24 +82,34 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                 iconOnRight: true,
               ),
 
+              const SizedBox(height: 16),
+
+              // Room ID Input
+              CustomInputField(
+                label: 'Room ID',
+                hint: 'zxcv',
+                icon: Icons.vpn_key_outlined,
+                controller: _roomIdController,
+              ),
+
               const Spacer(),
 
               // Info Text
-              const InfoText(text: 'Send the code to your friend to join'),
+              const InfoText(text: 'ask host for IP & Port details'),
 
               const SizedBox(height: 16),
 
-              // Create Room Button
+              // Join Room Button
               PrimaryButton(
-                text: 'Create Room',
+                text: 'Join Room',
                 icon: Icons.arrow_forward,
                 iconInBox: false,
                 iconOnRight: true,
                 onPressed: () {
-                  // TODO: Create room logic
                   final username = _usernameController.text.trim();
-                  if (username.isNotEmpty) {
-                    // Navigate to room/waiting screen
+                  final roomId = _roomIdController.text.trim();
+                  if (username.isNotEmpty && roomId.isNotEmpty) {
+                    // TODO: implement join room logic
                   }
                 },
               ),

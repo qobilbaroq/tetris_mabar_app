@@ -8,6 +8,8 @@ class PrimaryButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onPressed;
   final double height;
+  final bool iconInBox;
+  final bool iconOnRight;
 
   const PrimaryButton({
     super.key,
@@ -15,6 +17,8 @@ class PrimaryButton extends StatelessWidget {
     required this.icon,
     this.onPressed,
     this.height = 56,
+    this.iconInBox = true,
+    this.iconOnRight = false,
   });
 
   @override
@@ -36,20 +40,10 @@ class PrimaryButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 28,
-              height: 28,
-              decoration: BoxDecoration(
-                color: AppColors.contentHigh,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                icon,
-                color: AppColors.brandPrimary,
-                size: 18,
-              ),
-            ),
-            const SizedBox(width: 12),
+            if (!iconOnRight) ...[
+              _buildIcon(),
+              const SizedBox(width: 12),
+            ],
             Text(
               text,
               style: const TextStyle(
@@ -58,9 +52,37 @@ class PrimaryButton extends StatelessWidget {
                 color: AppColors.contentHigh,
               ),
             ),
+            if (iconOnRight) ...[
+              const SizedBox(width: 12),
+              _buildIcon(),
+            ],
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildIcon() {
+    if (iconInBox) {
+      return Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          color: AppColors.contentHigh,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(
+          icon,
+          color: AppColors.brandPrimary,
+          size: 18,
+        ),
+      );
+    } else {
+      return Icon(
+        icon,
+        color: AppColors.contentHigh,
+        size: 22,
+      );
+    }
   }
 }
