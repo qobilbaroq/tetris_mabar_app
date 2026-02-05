@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 
-/// Custom input field dengan styling sesuai desain
-/// Digunakan untuk input username dan field lainnya
 class CustomInputField extends StatelessWidget {
   final String label;
   final String hint;

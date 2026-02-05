@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tetris_mabar_app/screens/lobby_create_screen.dart';
 import '../core/theme/app_colors.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/info_text.dart';
 import '../widgets/primary_button.dart';
 
-/// Screen untuk membuat room baru
-/// User memasukkan username dan membuat room
 class CreateRoomScreen extends StatefulWidget {
   const CreateRoomScreen({super.key});
 
@@ -98,7 +97,12 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                   // TODO: Create room logic
                   final username = _usernameController.text.trim();
                   if (username.isNotEmpty) {
-                    // Navigate to room/waiting screen
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LobbyCreateScreen(),
+                    ),
+                  );
                   }
                 },
               ),

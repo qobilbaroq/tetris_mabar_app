@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 
-/// Info text dengan icon untuk menampilkan informasi/petunjuk
 class InfoText extends StatelessWidget {
   final String text;
   final IconData icon;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 
-/// Primary button dengan background brand color
-/// Digunakan untuk aksi utama seperti "Create Room"
 class PrimaryButton extends StatelessWidget {
   final String text;
   final IconData icon;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 
-class OutlinedGameButton extends StatelessWidget {
+class DangerButton extends StatelessWidget {
   final String text;
   final IconData icon;
   final VoidCallback? onPressed;
   final double height;
 
-  const OutlinedGameButton({
+  const DangerButton({
     super.key,
     required this.text,
     required this.icon,
@@ -20,15 +20,12 @@ class OutlinedGameButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: height,
-      child: OutlinedButton(
+      child: ElevatedButton(
         onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: AppColors.contentHigh,
-          side: const BorderSide(
-            color: AppColors.borderDefault,
-            width: 1.5,
-          ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.dangerBgDark,
+          foregroundColor: AppColors.dangerText,
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -39,7 +36,7 @@ class OutlinedGameButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: AppColors.brandPrimary,
+              color: AppColors.dangerText,
               size: 22,
             ),
             const SizedBox(width: 12),
@@ -48,7 +45,7 @@ class OutlinedGameButton extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: AppColors.contentHigh,
+                color: AppColors.dangerText,
               ),
             ),
           ],

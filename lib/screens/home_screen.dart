@@ -77,9 +77,9 @@ class HomeScreen extends StatelessWidget {
               TextLink(
                 text: 'How to Play',
                 icon: Icons.help_outline,
-                onTap: () {
-                  // TODO: Show how to play dialog/page
-                },
+                // onTap: () {
+                //   // TODO: Show how to play dialog/page
+                // },
               ),
 
               const Spacer(),

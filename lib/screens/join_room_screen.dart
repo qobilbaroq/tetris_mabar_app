@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tetris_mabar_app/screens/lobby_join_screen.dart';
 import '../core/theme/app_colors.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/info_text.dart';
@@ -73,7 +74,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
 
               const SizedBox(height: 48),
 
-              // Username Input (icon on right)
+              // Username Input 
               CustomInputField(
                 label: 'Username',
                 hint: 'TetrisMaster',
@@ -90,6 +91,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                 hint: 'zxcv',
                 icon: Icons.vpn_key_outlined,
                 controller: _roomIdController,
+                iconOnRight: true,
               ),
 
               const Spacer(),
@@ -109,7 +111,12 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                   final username = _usernameController.text.trim();
                   final roomId = _roomIdController.text.trim();
                   if (username.isNotEmpty && roomId.isNotEmpty) {
-                    // TODO: implement join room logic
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LobbyJoinScreen(),
+                    ),
+                  );
                   }
                 },
               ),
