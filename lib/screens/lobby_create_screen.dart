@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/outlined_button.dart';
+import 'game_screen.dart';
 
 /// Lobby screen shown to the host (create flow).
 class LobbyCreateScreen extends StatelessWidget {
@@ -162,7 +163,12 @@ class LobbyCreateScreen extends StatelessWidget {
                       icon: Icons.play_arrow,
                       iconInBox: false,
                       onPressed: () {
-                        // start game
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const GameScreen(),
+                          ),
+                        );
                       },
                     ),
                   ),
