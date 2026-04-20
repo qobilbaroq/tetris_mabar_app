@@ -4,6 +4,7 @@ import '../core/theme/app_colors.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/info_text.dart';
 import '../widgets/primary_button.dart';
+import '../core/network/network_manager.dart';
 
 class CreateRoomScreen extends StatefulWidget {
   const CreateRoomScreen({super.key});
@@ -93,16 +94,18 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                 icon: Icons.arrow_forward,
                 iconInBox: false,
                 iconOnRight: true,
-                onPressed: () {
-                  // TODO: Create room logic
+                onPressed: () async {
                   final username = _usernameController.text.trim();
                   if (username.isNotEmpty) {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LobbyCreateScreen(),
-                    ),
-                  );
+                    await NetworkManager.instance.startHost(username);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LobbyCreateScreen(),
+                        ),
+                      );
+                    }
                   }
                 },
               ),

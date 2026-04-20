@@ -4,6 +4,7 @@ import '../core/theme/app_colors.dart';
 import '../core/game/block.dart';
 import '../core/game/game_board.dart';
 import '../core/game/tetris_painter.dart';
+import '../core/network/network_manager.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -24,12 +25,29 @@ class _GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     _gameBoard = GameBoard();
-    _opponentBoard = GameBoard();
+    _opponentBoard = GameBoard(); // We won't use this directly to play, just to draw
     _gameBoard.addListener(_onGameBoardChanged);
+    NetworkManager.instance.addListener(_onNetworkChanged);
     _startGame();
   }
 
+  void _onNetworkChanged() {
+    if (NetworkManager.instance.isGameEnded) {
+      _gameTimer?.cancel();
+    }
+    setState(() {});
+  }
+
   void _onGameBoardChanged() {
+    // Sync board to opponent
+    final grid = _gameBoard.grid;
+    final intGrid = grid.map((row) => row.map((b) => b.index).toList()).toList();
+    NetworkManager.instance.sendBoard(intGrid);
+
+    if (_gameBoard.isGameOver && !NetworkManager.instance.isGameEnded) {
+      NetworkManager.instance.sendGameOver();
+    }
+    
     setState(() {});
   }
 
@@ -46,6 +64,7 @@ class _GameScreenState extends State<GameScreen> {
   void dispose() {
     _gameTimer?.cancel();
     _gameBoard.removeListener(_onGameBoardChanged);
+    NetworkManager.instance.removeListener(_onNetworkChanged);
     _gameBoard.dispose();
     _opponentBoard.dispose();
     super.dispose();
@@ -161,9 +180,12 @@ class _GameScreenState extends State<GameScreen> {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              const Text(
-                                'TetrisMaster',
-                                style: TextStyle(
+                              Text(
+                                NetworkManager.instance.players.firstWhere(
+                                  (p) => p['name'] != NetworkManager.instance.localUsername,
+                                  orElse: () => {'name': 'Opponent'}
+                                )['name'] as String,
+                                style: const TextStyle(
                                   color: AppColors.contentHigh,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -190,8 +212,8 @@ class _GameScreenState extends State<GameScreen> {
                           borderRadius: BorderRadius.circular(6.5),
                           child: CustomPaint(
                             size: const Size(40, 80),
-                            painter: TetrisPainter(
-                              gameBoard: _opponentBoard,
+                            painter: OpponentPainter(
+                              gridData: NetworkManager.instance.opponentBoardGrid,
                               cellSize: 4.0,
                             ),
                           ),
@@ -387,8 +409,8 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             
-            // Game Over overlay
-            if (_gameBoard.isGameOver)
+            // Game Over or Win overlay
+            if (_gameBoard.isGameOver || NetworkManager.instance.isGameEnded)
               Positioned.fill(
                 child: Container(
                   color: Colors.black.withOpacity(0.8),
@@ -396,13 +418,14 @@ class _GameScreenState extends State<GameScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'GAME OVER',
+                        Text(
+                          NetworkManager.instance.isGameEnded ? NetworkManager.instance.endMessage : 'GAME OVER',
                           style: TextStyle(
-                            color: AppColors.contentHigh,
+                            color: NetworkManager.instance.isGameEnded ? Colors.greenAccent : AppColors.contentHigh,
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 16),
                         Text(
@@ -415,7 +438,8 @@ class _GameScreenState extends State<GameScreen> {
                         const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: () {
-                            _gameBoard.reset();
+                            NetworkManager.instance.close();
+                            Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.brandPrimary,
@@ -426,7 +450,7 @@ class _GameScreenState extends State<GameScreen> {
                             ),
                           ),
                           child: const Text(
-                            'Play Again',
+                            'Back to Home',
                             style: TextStyle(fontSize: 18),
                           ),
                         ),

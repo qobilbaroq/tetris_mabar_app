@@ -373,3 +373,61 @@ class MultiPreviewPainter extends CustomPainter {
     return true;
   }
 }
+
+class OpponentPainter extends CustomPainter {
+  final List<List<int>> gridData;
+  final double cellSize;
+
+  OpponentPainter({
+    required this.gridData,
+    required this.cellSize,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final bgPaint = Paint()
+      ..color = AppColors.surfaceCard
+      ..style = PaintingStyle.fill;
+    
+    final rrect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      const Radius.circular(6.5),
+    );
+    canvas.drawRRect(rrect, bgPaint);
+
+    if (gridData.isEmpty) return;
+
+    for (int row = 0; row < gridData.length; row++) {
+      for (int col = 0; col < gridData[row].length; col++) {
+        final blockTypeIndex = gridData[row][col];
+        if (blockTypeIndex != 0) { // 0 is BlockType.empty
+          final color = Block.fromType(BlockType.values[blockTypeIndex]).color;
+          _drawBlock(canvas, row, col, color);
+        }
+      }
+    }
+  }
+
+  void _drawBlock(Canvas canvas, int row, int col, Color color) {
+    final x = col * cellSize;
+    final y = row * cellSize;
+    
+    final blockRect = Rect.fromLTWH(
+      x,
+      y,
+      cellSize,
+      cellSize,
+    );
+
+    final basePaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    canvas.drawRect(blockRect, basePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant OpponentPainter oldDelegate) {
+    return true; 
+  }
+}

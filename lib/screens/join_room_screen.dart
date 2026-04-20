@@ -4,6 +4,7 @@ import '../core/theme/app_colors.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/info_text.dart';
 import '../widgets/primary_button.dart';
+import '../core/network/network_manager.dart';
 
 /// Screen untuk bergabung ke room yang sudah dibuat
 class JoinRoomScreen extends StatefulWidget {
@@ -87,8 +88,8 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
 
               // Room ID Input
               CustomInputField(
-                label: 'Room ID',
-                hint: 'zxcv',
+                label: 'Room Code or IP',
+                hint: 'e.g. 5 or 192.168.1.5',
                 icon: Icons.vpn_key_outlined,
                 controller: _roomIdController,
                 iconOnRight: true,
@@ -97,7 +98,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
               const Spacer(),
 
               // Info Text
-              const InfoText(text: 'ask host for IP & Port details'),
+              const InfoText(text: 'Ask host for their Room Code'),
 
               const SizedBox(height: 16),
 
@@ -107,16 +108,19 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
                 icon: Icons.arrow_forward,
                 iconInBox: false,
                 iconOnRight: true,
-                onPressed: () {
+                onPressed: () async {
                   final username = _usernameController.text.trim();
                   final roomId = _roomIdController.text.trim();
                   if (username.isNotEmpty && roomId.isNotEmpty) {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LobbyJoinScreen(),
-                    ),
-                  );
+                    await NetworkManager.instance.joinRoom(roomId, username);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LobbyJoinScreen(),
+                        ),
+                      );
+                    }
                   }
                 },
               ),
