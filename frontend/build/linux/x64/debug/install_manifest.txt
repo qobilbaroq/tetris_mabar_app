@@ -1,0 +1,16 @@
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/tetris_mabar_app
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/icudtl.dat
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/logo.svg
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/shaders/stretch_effect.frag
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.bin
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.bin.json
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/NativeAssetsManifest.json
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
+/home/qobilul/Code/tetris/frontend/build/linux/x64/debug/bundle/data/flutter_assets/version.json
