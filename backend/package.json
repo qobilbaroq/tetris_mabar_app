@@ -1,0 +1,22 @@
+{
+  "name": "tetris-mabar-server",
+  "version": "1.0.0",
+  "description": "WebSocket server for Tetris multiplayer game",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "tetris",
+    "websocket",
+    "multiplayer",
+    "game"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.14.2"
+  }
+}
